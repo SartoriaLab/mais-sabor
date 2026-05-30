@@ -1,0 +1,39 @@
+name: Auto Sync Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/img/**'
+      - 'scripts/sync-images.js'
+      - '.github/workflows/auto-sync-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-images:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync image sections
+        run: node scripts/sync-images.js
+
+      - name: Commit synchronized HTML
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: sync image sections automatically'
+          file_pattern: index.html

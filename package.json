@@ -1,0 +1,17 @@
+{
+  "name": "mais-sabor-website",
+  "version": "1.0.0",
+  "description": "Site institucional da Casa de Carnes Mais Sabor com sincronização automatizada de imagens",
+  "main": "assets/site.js",
+  "scripts": {
+    "sync": "node scripts/sync-images.js",
+    "watch": "node scripts/watch-images.js",
+    "favicon": "node scripts/gen-favicon.js"
+  },
+  "keywords": [],
+  "author": "Juliano Anselmo",
+  "license": "ISC",
+  "dependencies": {
+    "sharp": "^0.33.2"
+  }
+}
