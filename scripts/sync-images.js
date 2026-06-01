@@ -146,6 +146,14 @@ function getImagesInDir(dirPath) {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
 }
 
+function sortOfertaImages(images) {
+  return [...images].sort((a, b) => {
+    if (a === 'espetos.webp') return 1;
+    if (b === 'espetos.webp') return -1;
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+  });
+}
+
 function generateFolhetosHTML(images, indent, urlPath) {
   return images.map((filename, index) => {
     const badge = index === 0 ? 'NOVO!' : 'IMPERDÍVEL';
@@ -165,7 +173,7 @@ function generateOfertasHTML(images, indent, urlPath) {
   return images.map((filename, index) => {
     const friendlyName = formatTitle(filename);
     const delay = index % 2 === 1 ? ' reveal-delay' : '';
-    return `${indent}<figure class="oferta-card reveal${delay} js-lightbox" tabindex="0" role="button" aria-label="Ampliar promoção de ${friendlyName}">\n` +
+    return `${indent}<figure class="oferta-card reveal${delay} js-lightbox" data-offer-file="${filename}" tabindex="0" role="button" aria-label="Ampliar promoção de ${friendlyName}">\n` +
            `${indent}  <img src="${urlPath}/${filename}" alt="Promoção ${friendlyName} - Casa de Carnes Mais Sabor" loading="lazy">\n` +
            `${indent}</figure>`;
   }).join('\n');
@@ -260,7 +268,7 @@ function sync() {
           newHTML = generateFolhetosHTML(images, section.indent, section.urlPath);
           break;
         case 'OFERTAS':
-          newHTML = generateOfertasHTML(images, section.indent, section.urlPath);
+          newHTML = generateOfertasHTML(sortOfertaImages(images), section.indent, section.urlPath);
           break;
         case 'KITS':
           newHTML = generateKitsHTML(images, section.indent, section.urlPath);
