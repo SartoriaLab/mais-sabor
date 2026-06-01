@@ -133,25 +133,29 @@ document.querySelectorAll("[data-real-bg]").forEach((node) => {
   setBackgroundWithFallback(node, localImage, fallbackImage, gradient);
 });
 
-function destacarOfertaCarneMoidaNaSegunda() {
+function destacarOfertaDoDia() {
   const ofertasGrid = document.querySelector(".ofertas-grid");
   if (!ofertasGrid) return;
 
   const destaqueAtual = ofertasGrid.querySelectorAll(".oferta-card--featured");
   destaqueAtual.forEach((card) => card.classList.remove("oferta-card--featured"));
 
-  const cardCarneMoida = ofertasGrid.querySelector('[data-offer-file="oferta-carne-moida.jpeg"]');
-  if (!cardCarneMoida) return;
-
   const hoje = new Date().getDay();
-  const ehSegunda = hoje === 1;
-  if (!ehSegunda) return;
+  const ofertaPorDia = {
+    1: "oferta-carne-moida.webp",
+    2: "oferta-terca.webp",
+  };
+  const arquivoOferta = ofertaPorDia[hoje];
+  if (!arquivoOferta) return;
 
-  ofertasGrid.prepend(cardCarneMoida);
-  cardCarneMoida.classList.add("oferta-card--featured");
+  const cardOferta = ofertasGrid.querySelector(`[data-offer-file="${arquivoOferta}"]`);
+  if (!cardOferta) return;
+
+  ofertasGrid.prepend(cardOferta);
+  cardOferta.classList.add("oferta-card--featured");
 }
 
-destacarOfertaCarneMoidaNaSegunda();
+destacarOfertaDoDia();
 
 // LIGHTBOX para folhetos
 const lightbox = document.getElementById("lightbox");
