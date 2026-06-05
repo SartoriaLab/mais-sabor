@@ -32,7 +32,7 @@ fs.watch(ASSETS_DIR, { recursive: true }, (eventType, filename) => {
 
   // Ignorar arquivos que não sejam imagens comuns
   const ext = path.extname(filename).toLowerCase();
-  const validExtensions = ['.webp', '.webp', '.webp', '.webp', '.svg', '.gif'];
+  const validExtensions = ['.webp', '.jpeg', '.jpg', '.png', '.svg', '.gif'];
   if (!validExtensions.includes(ext)) return;
 
   // Debouncing de 300ms para evitar chamadas duplicadas ou em lote

@@ -137,7 +137,7 @@ const HAMBURGUERES_DATA = {
   }
 };
 
-const IMAGE_EXTENSIONS = ['.webp', '.webp', '.webp', '.webp', '.svg', '.gif'];
+const IMAGE_EXTENSIONS = ['.webp', '.jpeg', '.jpg', '.png', '.svg', '.gif'];
 
 function getImagesInDir(dirPath) {
   if (!fs.existsSync(dirPath)) return [];
