@@ -142,15 +142,16 @@ function destacarOfertaDoDia() {
 
   const hoje = new Date().getDay();
   const ofertaPorDia = {
-    1: "oferta-carne-moida.webp",
-    2: "oferta-terca.webp",
+    1: { file: "oferta-carne-moida.webp", badge: "DESTAQUE DE SEGUNDA" },
+    2: { file: "oferta-terca.webp", badge: "DESTAQUE DE TERÇA" },
   };
-  const arquivoOferta = ofertaPorDia[hoje];
-  if (!arquivoOferta) return;
+  const ofertaDoDia = ofertaPorDia[hoje];
+  if (!ofertaDoDia) return;
 
-  const cardOferta = ofertasGrid.querySelector(`[data-offer-file="${arquivoOferta}"]`);
+  const cardOferta = ofertasGrid.querySelector(`[data-offer-file="${ofertaDoDia.file}"]`);
   if (!cardOferta) return;
 
+  cardOferta.setAttribute("data-badge", ofertaDoDia.badge);
   ofertasGrid.prepend(cardOferta);
   cardOferta.classList.add("oferta-card--featured");
 }
