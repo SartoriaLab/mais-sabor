@@ -515,6 +515,33 @@ p {
   display: block;
 }
 
+.folheto-assado {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 360px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+  box-shadow: var(--shadow-lg);
+}
+
+.folheto-assado:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.folheto-assado img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .folheto-assado {
+    max-width: 240px;
+  }
+}
+
 .folheto-badge {
   position: absolute;
   top: 14px;

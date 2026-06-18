@@ -265,7 +265,8 @@ function sync() {
     } else {
       switch (sectionKey) {
         case 'FOLHETOS':
-          newHTML = generateFolhetosHTML(images, section.indent, section.urlPath);
+          const filteredFolhetos = images.filter(f => f !== 'assado.webp');
+          newHTML = generateFolhetosHTML(filteredFolhetos, section.indent, section.urlPath);
           break;
         case 'OFERTAS':
           newHTML = generateOfertasHTML(sortOfertaImages(images), section.indent, section.urlPath);
