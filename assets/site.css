@@ -516,13 +516,22 @@ p {
 }
 
 .folheto-assado {
-  grid-column: 2;
   max-width: 360px;
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: zoom-in;
   transition: transform 0.25s ease;
   box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 981px) {
+  .folheto-card:first-of-type {
+    grid-row: span 2;
+  }
+  .folheto-assado {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .folheto-assado:hover {
