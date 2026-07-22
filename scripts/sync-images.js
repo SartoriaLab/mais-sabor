@@ -13,13 +13,6 @@ const SECTIONS = {
     endMarker: '<!-- END_FOLHETOS -->',
     indent: '            '
   },
-  OFERTAS: {
-    dir: path.join(ROOT_DIR, 'assets', 'img', 'ofertas'),
-    urlPath: 'assets/img/ofertas',
-    startMarker: '<!-- START_OFERTAS -->',
-    endMarker: '<!-- END_OFERTAS -->',
-    indent: '            '
-  },
   KITS: {
     dir: path.join(ROOT_DIR, 'assets', 'img', 'kits'),
     urlPath: 'assets/img/kits',
@@ -137,21 +130,13 @@ const HAMBURGUERES_DATA = {
   }
 };
 
-const IMAGE_EXTENSIONS = ['.webp', '.webp', '.webp', '.webp', '.svg', '.gif'];
+const IMAGE_EXTENSIONS = ['.webp', '.jpeg', '.jpg', '.png', '.svg', '.gif'];
 
 function getImagesInDir(dirPath) {
   if (!fs.existsSync(dirPath)) return [];
   return fs.readdirSync(dirPath)
     .filter(file => IMAGE_EXTENSIONS.includes(path.extname(file).toLowerCase()))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-}
-
-function sortOfertaImages(images) {
-  return [...images].sort((a, b) => {
-    if (a === 'espetos.webp') return 1;
-    if (b === 'espetos.webp') return -1;
-    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
-  });
 }
 
 function generateFolhetosHTML(images, indent, urlPath) {
@@ -167,16 +152,6 @@ function generateFolhetosHTML(images, indent, urlPath) {
            `${indent}  <img src="${urlPath}/${filename}" alt="Folheto de ofertas da semana - Casa de Carnes Mais Sabor" ${priorityAttr}>\n` +
            `${indent}</figure>`;
   }).join('\n\n');
-}
-
-function generateOfertasHTML(images, indent, urlPath) {
-  return images.map((filename, index) => {
-    const friendlyName = formatTitle(filename);
-    const delay = index % 2 === 1 ? ' reveal-delay' : '';
-    return `${indent}<figure class="oferta-card reveal${delay} js-lightbox" data-offer-file="${filename}" tabindex="0" role="button" aria-label="Ampliar promoção de ${friendlyName}">\n` +
-           `${indent}  <img src="${urlPath}/${filename}" alt="Promoção ${friendlyName} - Casa de Carnes Mais Sabor" loading="lazy">\n` +
-           `${indent}</figure>`;
-  }).join('\n');
 }
 
 function generateKitsHTML(images, indent, urlPath) {
@@ -267,9 +242,6 @@ function sync() {
         case 'FOLHETOS':
           const filteredFolhetos = images.filter(f => f !== 'assado.webp');
           newHTML = generateFolhetosHTML(filteredFolhetos, section.indent, section.urlPath);
-          break;
-        case 'OFERTAS':
-          newHTML = generateOfertasHTML(sortOfertaImages(images), section.indent, section.urlPath);
           break;
         case 'KITS':
           newHTML = generateKitsHTML(images, section.indent, section.urlPath);

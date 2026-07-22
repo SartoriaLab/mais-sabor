@@ -133,31 +133,6 @@ document.querySelectorAll("[data-real-bg]").forEach((node) => {
   setBackgroundWithFallback(node, localImage, fallbackImage, gradient);
 });
 
-function destacarOfertaDoDia() {
-  const ofertasGrid = document.querySelector(".ofertas-grid");
-  if (!ofertasGrid) return;
-
-  const destaqueAtual = ofertasGrid.querySelectorAll(".oferta-card--featured");
-  destaqueAtual.forEach((card) => card.classList.remove("oferta-card--featured"));
-
-  const hoje = new Date().getDay();
-  const ofertaPorDia = {
-    1: { file: "oferta-carne-moida.webp", badge: "DESTAQUE DE SEGUNDA" },
-    2: { file: "oferta-terca.webp", badge: "DESTAQUE DE TERÇA" },
-  };
-  const ofertaDoDia = ofertaPorDia[hoje];
-  if (!ofertaDoDia) return;
-
-  const cardOferta = ofertasGrid.querySelector(`[data-offer-file="${ofertaDoDia.file}"]`);
-  if (!cardOferta) return;
-
-  cardOferta.setAttribute("data-badge", ofertaDoDia.badge);
-  ofertasGrid.prepend(cardOferta);
-  cardOferta.classList.add("oferta-card--featured");
-}
-
-destacarOfertaDoDia();
-
 // LIGHTBOX para folhetos
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
